@@ -19,7 +19,7 @@ let ArticleSchema = new Schema({
         unique: true
     },
     score: {
-        type: Number,
+        type: String,
         required: true
     },
     notes: [
