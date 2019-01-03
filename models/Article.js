@@ -22,12 +22,14 @@ let ArticleSchema = new Schema({
         type: String,
         required: true
     },
-    notes: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Note"
-        }
-    ]
+    thumbnail: {
+        type: String,
+        required: true
+    },
+    notes: [{
+        type: Schema.Types.ObjectId,
+        ref: "Note"
+    }]
 })
 
 let Article = mongoose.model('Article', ArticleSchema)

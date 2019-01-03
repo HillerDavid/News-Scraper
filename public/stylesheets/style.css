@@ -5,3 +5,13 @@ a {
 .jumbotron {
   margin-bottom: 0px
 }
+
+.card {
+  float: left;
+  width: 100%;
+  margin-bottom: 2em;
+}
+
+.card-img-top {
+  width: fit-content;
+}

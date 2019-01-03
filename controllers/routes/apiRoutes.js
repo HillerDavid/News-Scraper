@@ -16,6 +16,7 @@ router.get('/api/scrape', function (req, res) {
       article.URL = 'https://www.gameinformer.com' + $(this).children('.teaser-left').find('a').attr('href')
       article.summary = $(this).find('.promo-summary').text()
       article.score = $(this).find('.score').text()
+      article.thumbnail = $(this).children('.teaser-left').find('img').attr('src')
 
       db.Article.create(article).then(article => {
         console.log(`Added ${article}`)
@@ -24,6 +25,18 @@ router.get('/api/scrape', function (req, res) {
       })
     })
     res.end('Scrape Complete')
+  })
+});
+
+router.post('/api/note/:id', (req, res) => {
+  db.Note.create({ message: req.body.message }).then((newNote) => {
+    res.json(newNote);    
+    return db.Article.findByIdAndUpdate({ _id: req.params.id} , { $push: { notes: newNote } })
+  }).then(dbArticle => {
+    console.log(dbArticle)
+    res.json(dbArticle);
+  }).catch(err => {
+    res.end('Database Error')
   })
 });
 
