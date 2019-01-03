@@ -12,6 +12,12 @@
                     Comments
                 </button>
             </h2>
+            {{#unless saved}}
+            <button class="btn btn-success save-button" id='save-button{{id}}' data-id={{_id}}>Save Review</button>
+            {{/unless}}
+            {{#if saved}}
+            <button class="btn btn-danger unsave-button" id='unsave-button{{id}}' data-id={{_id}}>Remove Saved Review</button>
+            {{/if}}
         </div>
 
         <div id="collapse{{id}}" class="collapse" aria-labelledby="heading{{id}}" data-parent="#accordion-parent{{id}}">

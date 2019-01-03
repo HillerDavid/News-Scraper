@@ -30,8 +30,8 @@ router.get('/api/scrape', function (req, res) {
 
 router.post('/api/note/:id', (req, res) => {
   db.Note.create({ message: req.body.message }).then((newNote) => {
-    res.json(newNote);    
-    return db.Article.findByIdAndUpdate({ _id: req.params.id} , { $push: { notes: newNote } })
+    res.json(newNote);
+    return db.Article.findByIdAndUpdate({ _id: req.params.id }, { $push: { notes: newNote } })
   }).then(dbArticle => {
     console.log(dbArticle)
     res.json(dbArticle);
@@ -39,5 +39,27 @@ router.post('/api/note/:id', (req, res) => {
     res.end('Database Error')
   })
 });
+
+
+router.post('/api/remove/:id', (req, res) => {
+  db.Note.findByIdAndDelete({ _id: req.params.id })
+    .then(data => {
+      res.end()
+    })
+})
+
+router.post('/api/save/:id', (req, res) => {
+  db.Article.findByIdAndUpdate({ _id: req.params.id }, { $set: { saved: true } })
+    .then(data => {
+      res.end()
+    })
+})
+
+router.post('/api/unsave/:id', (req, res) => {
+  db.Article.findByIdAndUpdate({ _id: req.params.id }, { $set: { saved: false } })
+    .then(data => {
+      res.end()
+    })
+})
 
 module.exports = router;
